@@ -70,10 +70,10 @@ def all_supplies_in_holidays(holiday_hash)
   #   Fourth Of July: Fireworks, BBQ
   # etc.
 
-  holiday_hash.each do |season, holiday|
-    puts "#{season.to_s.capitalize}:"
-    holiday.each do |event, supplies|
-      puts "  #{event.to_s.split("_").map { |x| x.capitalize }.join(" ") }: #{supplies.join(", ")}"
+  holiday_hash.each do |season, holiday| #Iterates the holiday hash by season and holiday
+    puts "#{season.to_s.capitalize}:" # Outputs a the season key to a string and capitalizes the first letter
+    holiday.each do |event, supplies| # Iterates the event and supplies
+      puts "  #{event.to_s.split("_").map { |x| x.capitalize }.join(" ") }: #{supplies.join(", ")}" # Outputs a string while interpolating the event and supplies
     end
   end
 end
@@ -82,11 +82,11 @@ def all_holidays_with_bbq(holiday_hash)
   # return an array of holiday names (as symbols) where supply lists
   # include the string "BBQ"
 
-  holiday_hash.map do |season, holidays|
-    holidays.map do |event, supplies|
-      if supplies.include?("BBQ")
-        event
+  holiday_hash.map do |season, holidays| #collects the keys and values into an array
+    holidays.map do |event, supplies| #collects the event and supplies into an array
+      if supplies.include?("BBQ") #checks to see if the supplies array includes the string 'BBQ'
+        event #returns the event
       end
     end
-  end.flatten.compact
+  end.flatten.compact #Flattens the new array and compacts it by removing 'nil' values
 end
