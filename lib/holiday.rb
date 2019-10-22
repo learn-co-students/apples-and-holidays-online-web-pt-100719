@@ -1,23 +1,6 @@
 require 'pry'
 
 def second_supply_for_fourth_of_july(holiday_hash)
-  # given that holiday_hash looks like this:
-  # {
-  #   :winter => {
-  #     :christmas => ["Lights", "Wreath"],
-  #     :new_years => ["Party Hats"]
-  #   },
-  #   :summer => {
-  #     :fourth_of_july => ["Fireworks", "BBQ"]
-  #   },
-  #   :fall => {
-  #     :thanksgiving => ["Turkey"]
-  #   },
-  #   :spring => {
-  #     :memorial_day => ["BBQ"]
-  #   }
-  # }
-  # return the second element in the 4th of July array
   holiday_hash[:summer][:fourth_of_july][1]
 end
 my_hash = {
@@ -39,24 +22,16 @@ def add_supply_to_winter_holidays(holiday_hash, supply)
   # holiday_hash is identical to the one above
   # add the second argument, which is a supply, to BOTH the
   # Christmas AND the New Year's arrays
-  holiday_hash.each do |season, holiday|
-    if season == :winter
-      holiday.transform_values {|value| value << supply}
-    end
+  holiday_hash[:winter].each do |holiday, supplies|
+    supplies << supply
   end
 end
 
 def add_supply_to_memorial_day(holiday_hash, supply)
   # again, holiday_hash is the same as the ones above
   # add the second argument to the memorial day array
-  holiday_hash.each_value do |holiday|
-   holiday.each do |holiday, supplies|
-    # if holiday == :memorial_day
-    #   holiday.transform_values {|value| value << supply}
-      if holiday == :memorial_day
-        supplies << supply
-      end
-    end
+  holiday_hash[:spring].each do |holiday, supplies|
+    supplies << supply
   end
 end
 
@@ -78,9 +53,10 @@ def all_supplies_in_holidays(holiday_hash)
   # Summer:
   #   Fourth Of July: Fireworks, BBQ
   # etc.
-  holiday_hash.each do |season, holiday|
+  holiday_hash.each do |season, hash|
     puts "#{season.capitalize}:"
-    holiday.each do |holiday, supplies|
+    hash.each do |holiday, supplies|
+  
       puts "  " + holiday.to_s.split("_").collect{|x| x.capitalize}.join(" ") + ": #{supplies.join(", ")}" 
     end
   end
@@ -92,16 +68,18 @@ def all_holidays_with_bbq(holiday_hash)
   # include the string "BBQ"
   bbq_holidays = [] 
   holiday_hash.collect do |season, holidays|
-    holidays.collect do |holiday, supply_array|
-      if supply_array.include?("BBQ")
-        bbq_holidays << holiday
+    if holidays.values.flatten.include?("BBQ")
+      holidays.collect do |holiday, supply_array|
+        if supply_array.include?("BBQ")
+          bbq_holidays << holiday
+        end
       end
     end
   end
   bbq_holidays
 end
 
-
+all_holidays_with_bbq(my_hash)
 
 
 
