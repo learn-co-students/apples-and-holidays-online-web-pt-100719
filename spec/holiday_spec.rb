@@ -125,7 +125,7 @@ TEXT
     # of holiday supplies line by line. If, on the other hand, you decided to output it
     # as one big chunk, comment out this test, and uncomment the one below it.
 
-    xit "should output the formatted list of holidays and their supplies" do
+    it "should output the formatted list of holidays and their supplies" do
       @output.each_line do |line|
         expect($stdout).to receive(:puts).with(line.chomp)
       end
@@ -143,7 +143,7 @@ TEXT
   # Question 7
   # Write a method to collect all holidays with BBQ
   describe "#all_holidays_with_bbq" do
-    xit "should return :fourth_of_july and :memorial_day" do
+    it "should return :fourth_of_july and :memorial_day" do
       expect(all_holidays_with_bbq(holiday_supplies)).to eq([:fourth_of_july, :memorial_day])
     end
   end
